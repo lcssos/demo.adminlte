@@ -15,6 +15,7 @@ import { WordPressComponent } from './word-press.component';
 import { FadingCircleComponent } from './fading-circle.component';
 import { FoldingCubeComponent } from './folding-cube.component';
 import {SpinnerService} from "./spinner.service";
+import {LoadingService} from "./loading.service";
 
 export {
   SpinnerComponent,
@@ -54,6 +55,6 @@ const NG_SPIN_KIT_COMPONENTS = [
   ],
   declarations: NG_SPIN_KIT_COMPONENTS,
   exports: NG_SPIN_KIT_COMPONENTS,
-  providers: [SpinnerService]
+  providers: [SpinnerService, LoadingService]
 })
 export class SpinnerModule {}

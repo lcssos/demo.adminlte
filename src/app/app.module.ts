@@ -9,6 +9,15 @@ import {SharedModule} from "./02.shared/shared.module";
 import {HttpInterceptorServiceFactoryProvider} from "./02.shared/http-interceptor.service";
 import {SpinnerModule} from "./04.spinner/spinner.module";
 import { routing } from './app.routes';
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {Http, HttpModule} from "@angular/http";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {LoginService} from "./01.common/login/login.service";
+import {ToastrModule} from "ngx-toastr";
+
+export function createTranslateLoader(http: Http) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -19,12 +28,26 @@ import { routing } from './app.routes';
   imports: [
     BrowserModule,
     SharedModule,
+    HttpModule,
     routing,
     SpinnerModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [Http]
+      }
+    }),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      autoDismiss: true,
+      maxOpened: 2
+    })
   ],
   providers: [
     HttpInterceptorServiceFactoryProvider,
+    LoginService,
   ],
   bootstrap: [AppComponent]
 })

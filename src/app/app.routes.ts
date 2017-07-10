@@ -26,7 +26,7 @@ const routes: Routes = [
     }
   }, {
     path: 'index',
-    loadChildren: './01.common/index/index.module#IndexModule',
+    loadChildren: './05.index/index.module#IndexModule',
     data: {
       title : '首页'
     }

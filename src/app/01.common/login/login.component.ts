@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('login...')
     $('body, html, .wrapper').css('height', $(window).height()+'px');
     $(window, "body").resize(function () {
       $('body, html, .wrapper').css('height', $(window).height()+'px');
