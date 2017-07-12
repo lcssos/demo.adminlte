@@ -13,12 +13,17 @@ export class LoginService {
   constructor(public http: HttpInterceptorService) {}
 
   public login (user: LoginUser) {
+    // let headers = new Headers();
+    // headers.append('Access-Control-Allow-Headers','Content-Type');
+    // headers.append('Access-Control-Allow-Methods','POST');
+    // headers.append('Access-Control-Allow-Origin','*');
+    // let options = new RequestOptions({ headers: headers });
     return this.http
       .post('springboot/login', user)
       .map((response: Response) => {
-        const user = response.json();
-        // console.log('user object>' + JSON.stringify(user));
-        if (user && user.token) {
+        const user = response.json().data;
+        console.log('user object>' + JSON.stringify(user));
+        if (user) {
           localStorage.setItem('currentUser', JSON.stringify(user));
         }
         return response;

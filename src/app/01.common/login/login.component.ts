@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit {
     $(window, "body").resize(function () {
       $('body, html, .wrapper').css('height', $(window).height()+'px');
     });
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue'
-    });
+    // $('input').iCheck({
+    //   checkboxClass: 'icheckbox_square-blue',
+    //   radioClass: 'iradio_square-blue'
+    // });
   }
 
 

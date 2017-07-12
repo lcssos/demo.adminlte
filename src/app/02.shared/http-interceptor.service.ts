@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConnectionBackend, Http, Request, RequestOptions, RequestOptionsArgs, Response, XHRBackend } from '@angular/http';
+import { ConnectionBackend, Http, Request, RequestOptions, RequestOptionsArgs, Response, XHRBackend, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -44,6 +44,13 @@ export class HttpInterceptorService extends Http {
       this.spinnerService.isRunning = true;
     }
 
+    console.log('HttpInterceptorService->request')
+    // let headers = new Headers();
+    // headers.append('Access-Control-Allow-Headers','Content-Type');
+    // headers.append('Access-Control-Allow-Methods','POST');
+    // headers.append('Access-Control-Allow-Origin','*');
+    // options = new RequestOptions({ headers: headers });
+
     return super.request(url, options)
       .map(result => {
         const resultObj = result.json();
@@ -57,7 +64,7 @@ export class HttpInterceptorService extends Http {
       })
       .catch(error => {
         const errorObj = error.json();
-        if (errorObj.status === 401 || errorObj.status === 403) {
+        if (errorObj.status === 401) {
           this.router.navigateByUrl('login');
         } else {
           this.alertService.showStatus = true;

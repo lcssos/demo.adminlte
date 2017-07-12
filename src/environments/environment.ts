@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  remoteAddress: 'http://localhost:8080/'
+  remoteAddress: 'http://front.local.com:9090/'
 };

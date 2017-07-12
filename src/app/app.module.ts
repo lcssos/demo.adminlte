@@ -14,6 +14,7 @@ import {Http, HttpModule} from "@angular/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {LoginService} from "./01.common/login/login.service";
 import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -26,6 +27,7 @@ export function createTranslateLoader(http: Http) {
     LockComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     SharedModule,
     HttpModule,
