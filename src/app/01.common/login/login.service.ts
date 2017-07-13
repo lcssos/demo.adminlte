@@ -21,16 +21,21 @@ export class LoginService {
     urlSearchParams.append('password', user.password);
     let body = urlSearchParams.toString()
 
-    return this.http
-      .post('/login', body, options)
-      .map((response: Response) => {
-        const u = response.json().data;
-        console.log('user object>' + JSON.stringify(u));
-        if (u) {
-          localStorage.setItem('currentUser', JSON.stringify(u));
-        }
+    return this.http.post('/login', body, options).map((response: Response) => {
         return response;
       });
+  }
+
+  public logout(){
+    return this.http.get('/logout').map((response: Response) => {
+      return response;
+    });
+  }
+
+  public index(){
+    return this.http.get('/').map((response: Response) => {
+      return response;
+    });
   }
 
 }

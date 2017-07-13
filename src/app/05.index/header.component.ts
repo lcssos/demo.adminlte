@@ -9,6 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 
 import { Password } from './password';
+import {LoginService} from "../01.common/login/login.service";
+import {ShiroUser} from "../01.common/login/shiro-user-model";
 
 
 @Component({
@@ -36,13 +38,20 @@ export class HeaderComponent implements OnInit {
     confirmButtonText: ""
   };
 
+  user: ShiroUser;
+
 
   constructor(
     public router: Router,
     public toastr: ToastrService,
+    public loginService: LoginService,
     public translate: TranslateService
   ) {
 
+
+    this.loginService.index().subscribe(data => {
+      this.user = data.json().data;
+    });
   }
 
   ngOnInit() {
@@ -56,12 +65,14 @@ export class HeaderComponent implements OnInit {
       this.logoutSwal.confirmButtonText = res.logoutBtnText;
 
     });
+
   }
 
   /**
    * 打开修改密码的对话框
    */
   showChPwdModal () {
+    console.log('chg pwd');
     this.chPwdForm.reset();
     this.chPwdModal.show();
   }
@@ -84,7 +95,13 @@ export class HeaderComponent implements OnInit {
    * 注销登录
    */
   doLogout() {
-    this.router.navigateByUrl('login');
+    console.log('logout...')
+    this.loginService.logout().subscribe(
+      data => {
+        this.router.navigateByUrl('login');
+      }
+    );
+
   }
 
   doLock () {
