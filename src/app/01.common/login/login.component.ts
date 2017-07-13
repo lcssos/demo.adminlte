@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.user)
         .subscribe(
           data => {
-            if (data.json().status === 200) {
+            if (data.json().data != null) {
               this.router.navigateByUrl('index');
             }
           }

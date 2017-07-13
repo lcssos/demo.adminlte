@@ -1,18 +1,26 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConnectionBackend, Http, Request, RequestOptions, RequestOptionsArgs, Response, XHRBackend, Headers } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {
+  ConnectionBackend,
+  Http,
+  Request,
+  RequestOptions,
+  RequestOptionsArgs,
+  Response,
+  XHRBackend
+} from '@angular/http';
 
-import { Observable } from 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 
-import { ToastrService } from 'ngx-toastr';
+import {ToastrService} from 'ngx-toastr';
 
 
-import { environment } from '../../environments/environment';
-import { SpinnerService } from '../04.spinner/spinner.service';
-import { AlertConfig } from '../03.alert';
+import {environment} from '../../environments/environment';
+import {SpinnerService} from '../04.spinner/spinner.service';
+import {AlertConfig} from '../03.alert';
 
 
 @Injectable()
@@ -25,10 +33,11 @@ export class HttpInterceptorService extends Http {
               private spinnerService: SpinnerService,
               private alertService: AlertConfig,
               private toastr: ToastrService,
-              private router: Router
-  ) {
+              private router: Router) {
     super(backend, defaultOptions);
   }
+
+
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
 
@@ -44,32 +53,32 @@ export class HttpInterceptorService extends Http {
       this.spinnerService.isRunning = true;
     }
 
-    console.log('HttpInterceptorService->request')
-    // let headers = new Headers();
-    // headers.append('Access-Control-Allow-Headers','Content-Type');
-    // headers.append('Access-Control-Allow-Methods','POST');
-    // headers.append('Access-Control-Allow-Origin','*');
-    // options = new RequestOptions({ headers: headers });
-
     return super.request(url, options)
       .map(result => {
         const resultObj = result.json();
-        if (resultObj.status === 200 && resultObj.msg) {
-          this.toastr.success(resultObj.msg);
-        } else if (resultObj.status !== 200 && resultObj.msg) {
+        const status = resultObj.status;
+        if (status === 200) {
+          if(resultObj.message){
+            this.toastr.success(resultObj.message);
+          }
+        }
+        else if (status === 401) {
+          this.toastr.show(resultObj.message);
+          this.router.navigateByUrl('login');
+        } else {
           this.alertService.showStatus = true;
-          this.alertService.message = resultObj.msg;
+          this.alertService.message = resultObj.message;
         }
         return result;
       })
       .catch(error => {
-        const errorObj = error.json();
-        if (errorObj.status === 401) {
-          this.router.navigateByUrl('login');
-        } else {
-          this.alertService.showStatus = true;
-          this.alertService.message = errorObj.msg;
-        }
+        // const errorObj = error.json();
+        // if (errorObj.status === 401) {
+        //   this.router.navigateByUrl('login');
+        // } else {
+        //   this.alertService.showStatus = true;
+        //   this.alertService.message = errorObj.message;
+        // }
         return Observable.of(error);
       })
       .finally(() => {

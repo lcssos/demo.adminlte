@@ -2,9 +2,9 @@
   <!-- Logo -->
   <a href="/" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>A</b>LT</span>
+    <span class="logo-mini"><b>和缓</b></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Admin</b>LTE</span>
+    <span class="logo-lg"><b>和缓</b>医疗</span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">
@@ -256,12 +256,12 @@
 
             <li class="divider"> </li>
             <li>
-              <a [swal]="lockSwal"
+              <a
                 (confirm)="doLock()">
                 <i class="fa fa-lock lockIcon"></i>{{'sys.headerModule.dropDown.lockSession' | translate}}</a>
             </li>
             <li>
-              <a [swal]="logoutSwal"
+              <a
                  (confirm)="doLogout()">
                 <i class="fa fa-sign-out"></i>{{'sys.headerModule.dropDown.logout' | translate}}</a>
             </li>

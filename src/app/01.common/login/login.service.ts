@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Response, RequestOptions, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 
@@ -13,18 +13,21 @@ export class LoginService {
   constructor(public http: HttpInterceptorService) {}
 
   public login (user: LoginUser) {
-    // let headers = new Headers();
-    // headers.append('Access-Control-Allow-Headers','Content-Type');
-    // headers.append('Access-Control-Allow-Methods','POST');
-    // headers.append('Access-Control-Allow-Origin','*');
-    // let options = new RequestOptions({ headers: headers });
+
+    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+    let options = new RequestOptions({headers});
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('username', user.username);
+    urlSearchParams.append('password', user.password);
+    let body = urlSearchParams.toString()
+
     return this.http
-      .post('springboot/login', user)
+      .post('/login', body, options)
       .map((response: Response) => {
-        const user = response.json().data;
-        console.log('user object>' + JSON.stringify(user));
-        if (user) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
+        const u = response.json().data;
+        console.log('user object>' + JSON.stringify(u));
+        if (u) {
+          localStorage.setItem('currentUser', JSON.stringify(u));
         }
         return response;
       });

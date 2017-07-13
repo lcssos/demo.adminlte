@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  remoteAddress: 'http://front.local.com:9090/'
+  remoteAddress: 'http://localhost:4200/springboot'
 };
