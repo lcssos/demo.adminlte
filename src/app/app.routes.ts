@@ -4,15 +4,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './01.common/login/login.component';
 import { LockComponent } from './01.common/lock/lock.component';
 
+// {
+//   path: '',
+//     redirectTo: 'login',
+//   pathMatch: 'full',
+//   data: {
+//   title : '系统登录'
+// }
+// },
+
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-    data: {
-      title : '系统登录'
-    }
-  }, {
     path: 'login',
     component: LoginComponent,
     data: {
@@ -25,7 +27,7 @@ const routes: Routes = [
       title : '锁定会话'
     }
   }, {
-    path: 'index',
+    path: '',
     loadChildren: './05.index/index.module#IndexModule',
     data: {
       title : '首页'
