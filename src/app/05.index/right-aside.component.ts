@@ -10,7 +10,7 @@ export class RightAsideComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    require('../../../node_modules/admin-lte/dist/js/demo.js');
+    // require('../../../node_modules/admin-lte/dist/js/demo.js');
   }
 
 }

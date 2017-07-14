@@ -15,11 +15,13 @@ import { FooterComponent } from './footer.component';
 import { MenuComponent } from './menu.component';
 import { RightAsideComponent } from './right-aside.component';
 import { HomeComponent } from './home.component';
+import {OpenslideModule} from "../06.openslide/openslide.module";
 
 // https://github.com/toverux/ngsweetalert2
 @NgModule({
   imports: [
     SharedModule,
+    OpenslideModule,
     ModalModule.forRoot(),
     // SweetAlert2Module.forRoot({
     //   showCancelButton: true

@@ -2,5 +2,9 @@
   "/springboot": {
     "target": "http://localhost:8080",
     "secure": false
+  },
+  "/slide_files":{
+    "target": "http://localhost:8070",
+    "secure": true
   }
 }
