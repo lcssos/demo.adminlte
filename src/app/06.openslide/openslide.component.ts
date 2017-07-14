@@ -19,7 +19,6 @@ export class OpenslideComponent implements OnInit {
     var viewer = new OpenSeadragon({
       id: "view",
       prefixUrl: "/assets/openslide/",
-      // tilesUrl: '/assets/slide_files/',
       timeout: 120000,
       animationTime: 0.5,
       blendTime: 0.1,
