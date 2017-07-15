@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
+import {IndexService} from "./index.service";
+import {ShiroUser} from "../01.common/login/shiro-user-model";
 
 
 @Component( {
@@ -15,7 +17,9 @@ export class IndexComponent implements OnInit {
     showCancelButton: true
   };
 
-  constructor (public translate: TranslateService) {
+  shiroUser: ShiroUser;
+
+  constructor (public translate: TranslateService, public indexService: IndexService) {
     this.translate.get("sys.common").subscribe((res : any) => {
       this.opts.confirmButtonText = res.confirmBtnText;
       this.opts.cancelButtonText = res.cancelBtnText;
@@ -23,10 +27,15 @@ export class IndexComponent implements OnInit {
 
     // swal.setDefaults(this.opts);
 
+    this.indexService.index().subscribe(data => {
+      this.shiroUser = data.json().data;
+    });
+
   }
 
   public ngOnInit() {
     require('../../../node_modules/jquery-slimscroll/jquery.slimscroll.js');
     require('../../../node_modules/admin-lte/dist/js/app.js');
+
   }
 }

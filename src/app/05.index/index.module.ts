@@ -16,6 +16,7 @@ import { MenuComponent } from './menu.component';
 import { RightAsideComponent } from './right-aside.component';
 import { HomeComponent } from './home.component';
 import {OpenslideModule} from "../06.openslide/openslide.module";
+import {IndexService} from "./index.service";
 
 // https://github.com/toverux/ngsweetalert2
 @NgModule({
@@ -38,7 +39,7 @@ import {OpenslideModule} from "../06.openslide/openslide.module";
     RightAsideComponent,
     HomeComponent
   ],
-  providers: [],
+  providers: [IndexService],
 })
 export class IndexModule {
 }

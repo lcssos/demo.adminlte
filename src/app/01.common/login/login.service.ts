@@ -32,10 +32,10 @@ export class LoginService {
     });
   }
 
-  public index(){
-    return this.http.get('/').map((response: Response) => {
-      return response;
-    });
-  }
+  // public index(){
+  //   return this.http.get('/').map((response: Response) => {
+  //     return response;
+  //   });
+  // }
 
 }

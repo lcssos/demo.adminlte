@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
     confirmButtonText: ""
   };
 
-  user: ShiroUser;
+  @Input() public user: ShiroUser;
 
 
   constructor(
@@ -49,9 +49,9 @@ export class HeaderComponent implements OnInit {
   ) {
 
 
-    this.loginService.index().subscribe(data => {
-      this.user = data.json().data;
-    });
+    // this.loginService.index().subscribe(data => {
+    //   this.user = data.json().data;
+    // });
   }
 
   ngOnInit() {
@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit {
    * 注销登录
    */
   doLogout() {
-    console.log('logout...')
+    // console.log('logout...')
     this.loginService.logout().subscribe(
       data => {
         this.router.navigateByUrl('login');

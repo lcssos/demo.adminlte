@@ -10113,10 +10113,10 @@ var I18N = {
     },
 
     Tooltips: {
-        FullPage:       "Toggle full page",
-        Home:           "Go home",
-        ZoomIn:         "Zoom in",
-        ZoomOut:        "Zoom out",
+        FullPage:       "全屏",
+        Home:           "重置",
+        ZoomIn:         "放大",
+        ZoomOut:        "缩小",
         NextPage:       "Next page",
         PreviousPage:   "Previous page",
         RotateLeft:     "Rotate left",

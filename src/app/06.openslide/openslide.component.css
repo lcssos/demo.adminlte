@@ -19,7 +19,7 @@ div#images li {
 
 div#view {
   position: absolute;
-  left: 18%;
+  /*left: 18%;*/
   width: 65%;
   height: 85%;
   background-color: black;
