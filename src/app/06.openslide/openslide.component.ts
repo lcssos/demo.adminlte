@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {HttpInterceptorService} from "../02.shared/http-interceptor.service";
+
+import {environment} from '../../environments/environment';
+import {element} from "protractor";
 
 declare var OpenSeadragon: any;
 
@@ -7,13 +12,27 @@ declare var OpenSeadragon: any;
   templateUrl: './openslide.component.html',
   styleUrls: ['./openslide.component.css']
 })
-export class OpenslideComponent implements OnInit {
+export class OpenslideComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  id: string;
+  private sub: any;
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
   ngOnInit() {
     require('./static/openseadragon.js');
     require('./static/openseadragon-scalebar.js');
+
+    console.log('ng init');
+
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+      console.log(this.id);
+    });
 
 
     var viewer = new OpenSeadragon({
@@ -41,7 +60,10 @@ export class OpenslideComponent implements OnInit {
       backgroundColor: 'rgba(255, 255, 255, 0.5)',
     });
 
-    open_slide("slide.dzi", parseFloat('0'),viewer);
+    let slide_url = environment.remoteAddress + '/slide_diz/'+this.id;
+
+    // open_slide("slide.dzi", parseFloat('0'),viewer);
+    open_slide(slide_url, parseFloat('0'),viewer);
 
     $(".load-slide").click(function(ev) {
       $(".current-slide").removeClass("current-slide");
@@ -57,21 +79,22 @@ export class OpenslideComponent implements OnInit {
 }
 
 
-let dzi_data11 = {"slide.dzi": "<?xml version='1.0' encoding='UTF-8'?>\n<Image Url=\"/slide_files/\" Format=\"jpeg\" Overlap=\"1\" TileSize=\"254\" xmlns=\"http://schemas.microsoft.com/deepzoom/2008\"><Size Height=\"210579\" Width=\"94968\" /></Image>"};
+// let dzi_data11 = {"slide.dzi": "<?xml version='1.0' encoding='UTF-8'?>\n<Image Url=\"/slide_files/\" Format=\"jpeg\" Overlap=\"1\" TileSize=\"254\" xmlns=\"http://schemas.microsoft.com/deepzoom/2008\"><Size Height=\"210579\" Width=\"94968\" /></Image>"};
 
 
 function open_slide(url, mpp,viewer) {
-  var tile_source;
-  if (dzi_data11[url]) {
-    // DZI XML provided as template argument (deepzoom_tile.py)
-    tile_source = new OpenSeadragon.DziTileSource(
-      OpenSeadragon.DziTileSource.prototype.configure(
-        OpenSeadragon.parseXml(dzi_data11[url]), url));
-  } else {
-    // DZI XML fetched from server (deepzoom_server.py)
-    tile_source = url;
-  }
-  viewer.open(tile_source);
+  // var tile_source;
+  // if (dzi_data11[url]) {
+  //   // DZI XML provided as template argument (deepzoom_tile.py)
+  //   tile_source = new OpenSeadragon.DziTileSource(
+  //     OpenSeadragon.DziTileSource.prototype.configure(
+  //       OpenSeadragon.parseXml(dzi_data11[url]), url));
+  // } else {
+  //   // DZI XML fetched from server (deepzoom_server.py)
+  //   tile_source = url;
+  // }
+  // viewer.open(tile_source);
+  viewer.open(url);
   viewer.scalebar({
     pixelsPerMeter: mpp ? (1e6 / mpp) : 0,
   });

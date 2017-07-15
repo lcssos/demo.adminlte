@@ -7,7 +7,7 @@ export const indexRoutes = [
     component: IndexComponent,
     children: [
       {
-        path:'openslide',
+        path:'openslide/:id',
         component: OpenslideComponent,
         data:{title:'病理'}
       }

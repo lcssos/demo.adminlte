@@ -26,9 +26,20 @@
     <ul class="sidebar-menu">
       <!--<li class="header">导航</li>-->
 
-      <li><a routerLink="/openslide" routerLinkActive="active"><i class="fa fa-book"></i> <span>病理图</span></a></li>
-
       <li class="active treeview">
+        <a href="#">
+          <i class="fa fa-dashboard"></i> <span>病理图</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a [routerLink]="['/openslide','v1']" routerLinkActive="active"><i class="fa fa-circle-o"></i>  v1</a></li>
+          <li><a [routerLink]="['/openslide','v2']" routerLinkActive="active"><i class="fa fa-circle-o"></i> v2</a></li>
+        </ul>
+      </li>
+
+      <li class="treeview">
         <a href="#">
           <i class="fa fa-dashboard"></i> <span>仪表盘</span>
           <span class="pull-right-container">
