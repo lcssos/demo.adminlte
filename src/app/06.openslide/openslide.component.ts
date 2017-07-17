@@ -51,22 +51,6 @@ export class OpenslideComponent implements OnInit, OnDestroy {
       // pixelsPerMeter: 10,
     });
 
-    viewer.addHandler("open", function() {
-      viewer.source.minLevel = 9;
-      // viewer.source.maxLevel = 14;
-    });
-    viewer.scalebar({
-      // xOffset: 10,
-      // yOffset: 10,
-      barThickness: 1,
-      // color: '#555555',
-      color: '#00FF00',
-      fontColor: '#00FF00',
-      // backgroundColor: 'rgba(255, 255, 255, 0.5)',
-      pixelsPerMeter: 10000000,
-      location: 4,
-    });
-
 
     // $(".load-slide").click(function(ev) {
     //   console.log('load-slide click')
@@ -79,6 +63,23 @@ export class OpenslideComponent implements OnInit, OnDestroy {
 
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
+
+
+      viewer.addHandler("open", function() {
+        viewer.source.minLevel = 9;
+      });
+      viewer.scalebar({
+        // xOffset: 10,
+        // yOffset: 10,
+        barThickness: 1,
+        // color: '#555555',
+        color: '#00FF00',
+        fontColor: '#00FF00',
+        // backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        pixelsPerMeter: 10000000,
+        location: 4,
+      });
+
 
       let slide_url = environment.remoteAddress + '/slide_dzi/'+this.id;
       open_slide(slide_url, parseFloat('0'),viewer);
