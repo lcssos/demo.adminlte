@@ -35,8 +35,8 @@
         tilesUrl: arguments[ 4 ],
         fileFormat: arguments[ 5 ],
         displayRects: arguments[ 6 ],
-        minLevel: 1,
-        maxLevel: 6
+        minLevel: arguments[ 7 ],
+        maxLevel: arguments[ 8 ]
       };
     }
 
@@ -65,6 +65,11 @@
       }
       // console.log(this._levelRects);
     }
+
+    // console.log('hh tile init');
+    // console.log(JSON.stringify(options));
+    options.minLevel = 11;
+    options.maxLevel = 16;
 
     $.TileSource.apply( this, [ options ] );
 
@@ -107,20 +112,20 @@
       var options;
 
       if( !$.isPlainObject(data) ){
-
+        // console.log("xml")
         options = configureFromXML( this, data );
 
       }else{
-
+        // console.log('obj')
         options = configureFromObject( this, data );
       }
 
-      // console.log(options);
+      // console.log(JSON.stringify(options));
 
 
       // console.log('url:'+url);
       if (url && !options.tilesUrl) {
-        console.log('hh tilesUrl....');
+        // console.log('hh tilesUrl....');
         options.tilesUrl = url.replace(/([^\/]+)\.(dzi|xml|js)(\?.*|$)/, '$1_files/');
 
         if (url.search(/\.(dzi|xml|js)\?/) != -1) {
@@ -143,7 +148,9 @@
      * @param {Number} y
      */
     getTileUrl: function( level, x, y ) {
-      return [ this.tilesUrl, level, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
+      if(level-10<1)
+        return this.tilesUrl + "large.jpg";
+      return [ this.tilesUrl,'tiles','/', level-10, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
     },
 
 
@@ -240,7 +247,7 @@
             Size: {
               Height: parseInt( sizeNode.getAttribute( "Height" ), 10 ),
               Width:  parseInt( sizeNode.getAttribute( "Width" ), 10 )
-            }
+            },
           }
         };
 
@@ -254,6 +261,8 @@
         if (dispRectNodes === undefined) {
           dispRectNodes = root.getElementsByTagNameNS(ns, "DisplayRect" )[ 0 ];
         }
+
+        console.log(dispRectNodes.length)
 
         for ( i = 0; i < dispRectNodes.length; i++ ) {
           dispRectNode = dispRectNodes[ i ];

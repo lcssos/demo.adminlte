@@ -65,7 +65,7 @@ export class OpenslideComponent implements OnInit, OnDestroy {
 
 
       viewer.addHandler("open", function() {
-        viewer.source.minLevel = 9;
+        viewer.source.minLevel = 11;
       });
       viewer.scalebar({
         // xOffset: 10,
