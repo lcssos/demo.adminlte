@@ -35,8 +35,8 @@
         tilesUrl: arguments[ 4 ],
         fileFormat: arguments[ 5 ],
         displayRects: arguments[ 6 ],
-        minLevel: arguments[ 7 ],
-        maxLevel: arguments[ 8 ]
+        minLevel: 1,
+        maxLevel: 6
       };
     }
 
@@ -143,7 +143,7 @@
      * @param {Number} y
      */
     getTileUrl: function( level, x, y ) {
-      return [ this.tilesUrl, level - 6, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
+      return [ this.tilesUrl, level, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
     },
 
 

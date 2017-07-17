@@ -106,7 +106,7 @@
         this.barThickness = options.barThickness || 2;
         this.pixelsPerMeter = options.pixelsPerMeter || null;
 
-        console.log(this.pixelsPerMeter);
+        // console.log(this.pixelsPerMeter);
       // console.log(JSON.stringify(this));
 
         this.location = options.location || $.ScalebarLocation.BOTTOM_LEFT;
@@ -165,7 +165,7 @@
             if (isDefined(options.pixelsPerMeter)) {
               // console.log('1111')
                 this.pixelsPerMeter = options.pixelsPerMeter;
-              console.log(this.pixelsPerMeter)
+              // console.log(this.pixelsPerMeter)
             }
             if (isDefined(options.location)) {
                 this.location = options.location;
