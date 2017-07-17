@@ -148,8 +148,14 @@
      * @param {Number} y
      */
     getTileUrl: function( level, x, y ) {
-      if(level-10<1)
+      if(level==10){
+        console.log(x,y);
+      }
+      if(level <= 10)
         return this.tilesUrl + "large.jpg";
+      // else if(level == 10){
+      //   return [ this.tilesUrl,'tiles','/', level-9, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
+      // }
       return [ this.tilesUrl,'tiles','/', level-10, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
     },
 
