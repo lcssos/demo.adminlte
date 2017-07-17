@@ -1,4 +1,4 @@
-/* 
+/*
  * This software was developed at the National Institute of Standards and
  * Technology by employees of the Federal Government in the course of
  * their official duties. Pursuant to title 17 Section 105 of the United
@@ -26,6 +26,8 @@
             options.viewer = this;
             this.scalebarInstance = new $.Scalebar(options);
         } else {
+          // console.log('1')
+          // console.log(options)
             this.scalebarInstance.refresh(options);
         }
     };
@@ -45,7 +47,7 @@
     };
 
     /**
-     * 
+     *
      * @class Scalebar
      * @param {Object} options
      * @param {OpenSeadragon.Viewer} options.viewer The viewer to attach this
@@ -63,7 +65,7 @@
      * default: 5
      * @param {Integer} options.yOffset Offset location of the scale bar along y.
      * default: 5
-     * @param {Boolean} options.stayInsideImage When set to true, keep the 
+     * @param {Boolean} options.stayInsideImage When set to true, keep the
      * scale bar inside the image when zooming out. default: true
      * @param {String} options.color The color of the scale bar using a color
      * name or the hexadecimal format (ex: black or #000000) default: black
@@ -86,6 +88,8 @@
         }
         this.viewer = options.viewer;
 
+        // console.log(options);
+
         this.divElt = document.createElement("div");
         this.viewer.container.appendChild(this.divElt);
         this.divElt.style.position = "relative";
@@ -101,6 +105,10 @@
         this.fontSize = options.fontSize || "";
         this.barThickness = options.barThickness || 2;
         this.pixelsPerMeter = options.pixelsPerMeter || null;
+
+        console.log(this.pixelsPerMeter);
+      // console.log(JSON.stringify(this));
+
         this.location = options.location || $.ScalebarLocation.BOTTOM_LEFT;
         this.xOffset = options.xOffset || 5;
         this.yOffset = options.yOffset || 5;
@@ -109,16 +117,23 @@
         this.sizeAndTextRenderer = options.sizeAndTextRenderer ||
                 $.ScalebarSizeAndTextRenderer.METRIC_LENGTH;
 
+      // console.log(this);
+
         var self = this;
         this.viewer.addHandler("open", function() {
+          // console.log(2)
             self.refresh();
         });
         this.viewer.addHandler("animation", function() {
+          // console.log(3)
             self.refresh();
         });
         this.viewer.addHandler("resize", function() {
+          // console.log(4)
             self.refresh();
         });
+
+        // console.log(this);
     };
 
     $.Scalebar.prototype = {
@@ -148,7 +163,9 @@
                 this.barThickness = options.barThickness;
             }
             if (isDefined(options.pixelsPerMeter)) {
+              // console.log('1111')
                 this.pixelsPerMeter = options.pixelsPerMeter;
+              console.log(this.pixelsPerMeter)
             }
             if (isDefined(options.location)) {
                 this.location = options.location;
@@ -198,7 +215,7 @@
          * default: 5
          * @param {Integer} options.yOffset Offset location of the scale bar along y.
          * default: 5
-         * @param {Boolean} options.stayInsideImage When set to true, keep the 
+         * @param {Boolean} options.stayInsideImage When set to true, keep the
          * scale bar inside the image when zooming out. default: true
          * @param {String} options.color The color of the scale bar using a color
          * name or the hexadecimal format (ex: black or #000000) default: black
@@ -215,12 +232,15 @@
          * default: $.ScalebarSizeAndTextRenderer.METRIC_LENGTH
          */
         refresh: function(options) {
+          // console.log(options);
             this.updateOptions(options);
 
+            // debugger;
             if (!this.viewer.isOpen() ||
                     !this.drawScalebar ||
                     !this.pixelsPerMeter ||
                     !this.location) {
+                // console.log('none')
                 this.divElt.style.display = "none";
                 return;
             }

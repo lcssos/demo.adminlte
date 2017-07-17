@@ -1,9 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {HttpInterceptorService} from "../02.shared/http-interceptor.service";
 
 import {environment} from '../../environments/environment';
-import {element} from "protractor";
 
 declare var OpenSeadragon: any;
 
@@ -26,16 +24,13 @@ export class OpenslideComponent implements OnInit, OnDestroy {
   ngOnInit() {
     require('./static/openseadragon.js');
     require('./static/openseadragon-scalebar.js');
+    require('./static/openseadragon-hhtile.js');
 
-    console.log('ng init');
-
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-      console.log(this.id);
-    });
+    // console.log('ng init');
 
 
-    var viewer = new OpenSeadragon({
+
+    let viewer = new OpenSeadragon({
       id: "view",
       prefixUrl: "/assets/openslide/",
       timeout: 120000,
@@ -46,40 +41,55 @@ export class OpenslideComponent implements OnInit, OnDestroy {
       minZoomLevel: 1,
       visibilityRatio: 1,
       zoomPerScroll: 2,
+      showNavigator: true,
+      navigatorPosition: "ABSOLUTE",
+      navigatorTop:      "40px",
+      navigatorLeft:     "4px",
+      navigatorHeight:   "120px",
+      navigatorWidth:    "145px",
+      navigatorAutoFade:  false,
+      // pixelsPerMeter: 10,
     });
 
     viewer.addHandler("open", function() {
-      viewer.source.minLevel = 8;
+      viewer.source.minLevel = 9;
+      // viewer.source.maxLevel = 14;
     });
     viewer.scalebar({
-      xOffset: 10,
-      yOffset: 10,
-      barThickness: 3,
-      color: '#555555',
-      fontColor: '#333333',
-      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      // xOffset: 10,
+      // yOffset: 10,
+      barThickness: 1,
+      // color: '#555555',
+      color: '#00FF00',
+      fontColor: '#00FF00',
+      // backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      pixelsPerMeter: 10000000,
+      location: 4,
     });
 
-    let slide_url = environment.remoteAddress + '/slide_diz/'+this.id;
 
-    // open_slide("slide.dzi", parseFloat('0'),viewer);
-    open_slide(slide_url, parseFloat('0'),viewer);
+    // $(".load-slide").click(function(ev) {
+    //   console.log('load-slide click')
+    //   $(".current-slide").removeClass("current-slide");
+    //   $(this).parent().addClass("current-slide");
+    //   open_slide($(this).attr('data-url'),parseFloat($(this).attr('data-mpp')), viewer);
+    //   ev.preventDefault();
+    // });
 
-    $(".load-slide").click(function(ev) {
-      $(".current-slide").removeClass("current-slide");
-      $(this).parent().addClass("current-slide");
-      open_slide($(this).attr('data-url'),parseFloat($(this).attr('data-mpp')), viewer);
-      ev.preventDefault();
+
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+
+      let slide_url = environment.remoteAddress + '/slide_dzi/'+this.id;
+      open_slide(slide_url, parseFloat('0'),viewer);
     });
+
 
   }
 
 
 
 }
-
-
-// let dzi_data11 = {"slide.dzi": "<?xml version='1.0' encoding='UTF-8'?>\n<Image Url=\"/slide_files/\" Format=\"jpeg\" Overlap=\"1\" TileSize=\"254\" xmlns=\"http://schemas.microsoft.com/deepzoom/2008\"><Size Height=\"210579\" Width=\"94968\" /></Image>"};
 
 
 function open_slide(url, mpp,viewer) {
@@ -95,7 +105,9 @@ function open_slide(url, mpp,viewer) {
   // }
   // viewer.open(tile_source);
   viewer.open(url);
-  viewer.scalebar({
-    pixelsPerMeter: mpp ? (1e6 / mpp) : 0,
-  });
+  // console.log('mpp');
+  // console.log(mpp);
+  // viewer.scalebar({
+  //   // pixelsPerMeter: mpp ? (1e6 / mpp) : 0,
+  // });
 }

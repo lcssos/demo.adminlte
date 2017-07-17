@@ -4,90 +4,6 @@
 //! http://openseadragon.github.io
 //! License: http://openseadragon.github.io/license/
 
-/*
- * OpenSeadragon
- *
- * Copyright (C) 2009 CodePlex Foundation
- * Copyright (C) 2010-2013 OpenSeadragon contributors
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * - Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * - Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * - Neither the name of CodePlex Foundation nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
- * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/*
- * Portions of this source file taken from jQuery:
- *
- * Copyright 2011 John Resig
- *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-/*
- * Portions of this source file taken from mattsnider.com:
- *
- * Copyright (c) 2006-2013 Matt Snider
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
- * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
- * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-
 /**
  * @version  OpenSeadragon 1.2.1
  *
@@ -2489,6 +2405,8 @@ window.OpenSeadragon = window.OpenSeadragon || function( options ){
                 parseInt( dispRectNode.getAttribute( "MaxLevel" ), 10 )
             ));
         }
+
+        // console.log('dzi...');
         return new $.DziTileSource(
             width,
             height,
@@ -6790,6 +6708,7 @@ $.Viewer = function( options ) {
 
     if ( this.xmlPath  ){
         //Deprecated option.  Now it is preferred to use the tileSources option
+      // console.log(this.xmlPath);
         this.tileSources = [ this.xmlPath ];
     }
 
@@ -6811,12 +6730,13 @@ $.Viewer = function( options ) {
             if ( this.initialPage > this.tileSources.length - 1 ){
                 this.initialPage = this.tileSources.length - 1;
             }
-
+            // console.log(this.initialPage);
             initialTileSource = this.tileSources[ this.initialPage ];
 
             //Update the sequence (aka currrent page) property
             THIS[ this.hash ].sequence = this.initialPage;
         } else {
+          // console.log(this.tileSources);
             initialTileSource = this.tileSources;
         }
     }
@@ -6904,6 +6824,7 @@ $.Viewer = function( options ) {
     this.bindStandardControls();
     this.bindSequenceControls();
 
+    // console.log(initialTileSource);
     if ( initialTileSource ) {
         this.open( initialTileSource );
 
@@ -6985,6 +6906,9 @@ $.extend( $.Viewer.prototype, $.EventSource.prototype, $.ControlDock.prototype, 
      */
     open: function ( tileSource ) {
         var _this = this;
+
+        // console.log('open tile url:');
+        // console.log(tileSource);
 
         _this._hideMessage();
 
@@ -8344,6 +8268,8 @@ function getTileSourceImplementation( viewer, tileSource, successCallback,
     failCallback ) {
     var _this = viewer;
 
+    // console.log(tileSource);
+
     //allow plain xml strings or json strings to be parsed here
     if ( $.type( tileSource ) == 'string' ) {
         if ( tileSource.match( /\s*<.*/ ) ) {
@@ -9700,6 +9626,8 @@ function onNext(){
  */
 $.Navigator = function( options ){
 
+  // console.log(options);
+
     var viewer      = options.viewer,
         _this = this,
         viewerSize,
@@ -9840,6 +9768,7 @@ $.Navigator = function( options ){
 
     this.oldContainerSize = new $.Point( 0, 0 );
 
+    // console.log(options);
     $.Viewer.apply( this, [ options ] );
 
     this.displayRegionContainer.appendChild(this.displayRegion);
@@ -10473,6 +10402,8 @@ $.TileSource = function( width, height, tileSize, tileOverlap, minLevel, maxLeve
         };
     }
 
+    // debugger;
+
     //Tile sources supply some events, namely 'ready' when they must be configured
     //by asynchronously fetching their configuration data.
     $.EventSource.call( this );
@@ -10571,7 +10502,7 @@ $.TileSource = function( width, height, tileSize, tileOverlap, minLevel, maxLeve
         }
     }
 
-
+    // debugger;
 };
 
 
@@ -10736,7 +10667,10 @@ $.TileSource.prototype = /** @lends OpenSeadragon.TileSource.prototype */{
             }
 
             options = $TileSource.prototype.configure.apply( _this, [ data, url ]);
+            // debugger;
+            // console.log(options);
             readySource = new $TileSource( options );
+            // console.log(readySource);
             _this.ready = true;
             /**
              * Raised when a TileSource is opened and initialized.
@@ -10937,6 +10871,9 @@ function processResponse( xhr ){
  */
 $.TileSource.determineType = function( tileSource, data, url ){
     var property;
+    // console.log(tileSource);
+    // console.log(data);
+    // console.log(url);
     for( property in OpenSeadragon ){
         if( property.match(/.+TileSource$/) &&
             $.isFunction( OpenSeadragon[ property ] ) &&
@@ -11042,6 +10979,7 @@ $.DziTileSource = function( width, height, tileSize, tileOverlap, tilesUrl, file
                 this._levelRects[ level ].push( rect );
             }
         }
+        // console.log(this._levelRects);
     }
 
     $.TileSource.apply( this, [ options ] );
@@ -11095,6 +11033,8 @@ $.extend( $.DziTileSource.prototype, $.TileSource.prototype, /** @lends OpenSead
 
         // console.log(options);
 
+
+      // console.log('url:'+url);
         if (url && !options.tilesUrl) {
           // console.log('tilesUrl....')
             options.tilesUrl = url.replace(/([^\/]+)\.(dzi|xml|js)(\?.*|$)/, '$1_files/');
@@ -11105,6 +11045,8 @@ $.extend( $.DziTileSource.prototype, $.TileSource.prototype, /** @lends OpenSead
                 options.queryParams = '';
             }
         }
+
+        // console.log(options.tilesUrl);
 
         return options;
     },
@@ -11117,6 +11059,9 @@ $.extend( $.DziTileSource.prototype, $.TileSource.prototype, /** @lends OpenSead
      * @param {Number} y
      */
     getTileUrl: function( level, x, y ) {
+      // console.log([ this.tilesUrl, level, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' ));
+      // console.log(this.tilesUrl);
+      // console.log([ this.tilesUrl, level, '/', x, '_', y, '.', this.fileFormat, this.queryParams ]);
         return [ this.tilesUrl, level, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
     },
 
@@ -11137,7 +11082,10 @@ $.extend( $.DziTileSource.prototype, $.TileSource.prototype, /** @lends OpenSead
             yMax,
             i;
 
+        // console.log(rects);
+
         if ( !rects || !rects.length ) {
+          // console.log('return true');
             return true;
         }
 
@@ -11327,7 +11275,7 @@ function configureFromObject( tileSource, configuration ){
   // }, configuration );
   // console.log(x1)
   //
-  // console.log(configuration)
+  // console.log(tilesUrl)
 
     var o = $.extend(true, {
         width: width, /* width *required */
@@ -11340,7 +11288,7 @@ function configureFromObject( tileSource, configuration ){
         fileFormat: fileFormat, /* fileFormat */
         displayRects: displayRects /* displayRects */
     }, configuration );
-    console.log(JSON.stringify(o));
+    // console.log(JSON.stringify(o));
     return o;
 
 }
