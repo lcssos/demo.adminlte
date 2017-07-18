@@ -38,7 +38,7 @@ export class OpenslideComponent implements OnInit, OnDestroy {
       blendTime: 0.1,
       constrainDuringPan: true,
       maxZoomPixelRatio: 2,
-      minZoomLevel: 1,
+      // minZoomLevel: 1,
       visibilityRatio: 1,
       zoomPerScroll: 2,
       showNavigator: true,
@@ -48,6 +48,8 @@ export class OpenslideComponent implements OnInit, OnDestroy {
       navigatorHeight:   "120px",
       navigatorWidth:    "145px",
       navigatorAutoFade:  false,
+      defaultZoomLevel: 2,
+      minZoomLevel: 2,
     });
 
 
@@ -65,7 +67,7 @@ export class OpenslideComponent implements OnInit, OnDestroy {
 
 
       viewer.addHandler("open", function() {
-        viewer.source.minLevel = 11;
+        viewer.source.minLevel = 12;
       });
       viewer.scalebar({
         // xOffset: 10,

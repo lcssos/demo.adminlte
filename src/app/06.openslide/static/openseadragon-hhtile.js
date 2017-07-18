@@ -68,8 +68,8 @@
 
     // console.log('hh tile init');
     // console.log(JSON.stringify(options));
-    options.minLevel = 11;
-    options.maxLevel = 16;
+    options.minLevel = 12;
+    // options.maxLevel = 17;
 
     $.TileSource.apply( this, [ options ] );
 
@@ -148,15 +148,15 @@
      * @param {Number} y
      */
     getTileUrl: function( level, x, y ) {
-      if(level==10){
-        console.log(x,y);
-      }
-      if(level <= 10)
+      // if(level==11){
+      //   console.log(x,y);
+      // }
+      if(level <= 11)
         return this.tilesUrl + "large.jpg";
       // else if(level == 10){
       //   return [ this.tilesUrl,'tiles','/', level-9, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
       // }
-      return [ this.tilesUrl,'tiles','/', level-10, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
+      return [ this.tilesUrl,'tiles','/', level-11, '/', x, '_', y, '.', this.fileFormat, this.queryParams ].join( '' );
     },
 
 
