@@ -48,8 +48,8 @@ export class OpenslideComponent implements OnInit, OnDestroy {
       navigatorHeight:   "120px",
       navigatorWidth:    "145px",
       navigatorAutoFade:  false,
-      defaultZoomLevel: 2,
-      minZoomLevel: 2,
+      defaultZoomLevel: 3,
+      minZoomLevel: 3,
     });
 
 
